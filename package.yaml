@@ -1,0 +1,57 @@
+name:                streaming-calc
+version:             0.1.0.0
+license:             GPL-3
+homepage:            https://github.com/sycured/streaming_calc_haskell
+author:              "sycured"
+maintainer:          "60801403+sycured@users.noreply.github.com"
+copyright:           "2020 sycured"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+description:         Please see the README
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  streaming-calc-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-uni-patterns
+    - -Wincomplete-record-updates
+    - -Wredundant-constraints
+    - -Widentities
+    - -Wmissing-export-lists
+    - -Wpartial-fields
+    - -fhide-source-paths
+    - -freverse-errors
+    - -XApplicativeDo
+    - -XRecordWildCards
+    - -O2
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - argparser >= 0.3.4
+    - streaming-calc
+
+tests:
+  streaming-calc-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hspec
+    - QuickCheck
+    - streaming-calc
