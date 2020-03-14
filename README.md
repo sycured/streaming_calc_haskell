@@ -1,5 +1,7 @@
 # streaming_calc_haskell
 
+[![Build Status](https://travis-ci.com/sycured/streaming_calc_haskell.svg?branch=master)](https://travis-ci.com/sycured/streaming_calc_haskell)
+
 Bandwidth calculation for streaming server | Rewrite from my original in Python
 
 ## Compilation

@@ -1,0 +1,16 @@
+language: minimal
+dist: bionic
+
+git:
+  quiet: true
+
+services:
+  - docker
+
+before_install:
+  - docker pull haskell:latest
+  - docker run --rm -it -v $TRAVIS_BUILD_DIR:/shared -w=/shared haskell:latest bash
+
+script:
+- stack setup
+- stack build --test
