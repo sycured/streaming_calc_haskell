@@ -9,11 +9,11 @@ services:
 
 before_script:
   - docker pull haskell:latest
-  - docker run --allow-different-user -dit --name haskell-build -v $TRAVIS_BUILD_DIR:/shared -w=/shared haskell bash
+  - docker run -dit --name haskell-build -v $TRAVIS_BUILD_DIR:/shared -w=/shared haskell bash
 
 script:
-- docker exec haskell-build stack setup
-- docker exec haskell-build stack build --test
+- docker exec haskell-build stack --allow-different-user setup
+- docker exec haskell-build stack --allow-different-user build --test
 
 after_script:
 - docker stop haskell-build
