@@ -16,26 +16,20 @@ serverUsageBw nblisteners bitrate nbdays nbhours =
 printBwServer :: Float -> Float -> IO ()
 printBwServer nblisteners bitrate = putStrLn
   (  "Number of listeners: "
-  ++ show nblisteners
-  ++ "\nBitrate (kb/s): "
-  ++ show bitrate
-  ++ "\nServer bandwidth (Mib/s): "
-  ++ show result
+  ++ shows nblisteners "\nBitrate (kb/s): "
+  ++ shows bitrate     "\nServer bandwidth (Mib/s): "
+  ++ result
   )
-  where result = bwServer nblisteners bitrate
+  where result = show (bwServer nblisteners bitrate)
 
 
 printServerUsageBw :: Float -> Float -> Float -> Float -> IO ()
 printServerUsageBw nblisteners bitrate nbdays nbhours = putStrLn
   (  "Number of listeners: "
-  ++ show nblisteners
-  ++ "\nBitrate (kb/s): "
-  ++ show bitrate
-  ++ "\nNumber of days: "
-  ++ show nbdays
-  ++ "\nNumber of hours by days: "
-  ++ show nbhours
-  ++ "\nBandwidth used (GiB): "
-  ++ show result
+  ++ shows nblisteners "\nBitrate (kb/s): "
+  ++ shows bitrate     "\nNumber of days: "
+  ++ shows nbdays      "\nNumber of hours by days: "
+  ++ shows nbhours     "\nBandwidth used (GiB): "
+  ++ result
   )
-  where result = serverUsageBw nblisteners bitrate nbdays nbhours
+  where result = show (serverUsageBw nblisteners bitrate nbdays nbhours)
