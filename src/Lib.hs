@@ -6,6 +6,8 @@ module Lib
   )
 where
 
+import           Text.Format
+
 bwServer :: Float -> Float -> Float
 bwServer nblisteners bitrate = nblisteners * bitrate * 1000 / 1024
 
@@ -15,21 +17,17 @@ serverUsageBw nblisteners bitrate nbdays nbhours =
 
 printBwServer :: Float -> Float -> IO ()
 printBwServer nblisteners bitrate = putStrLn
-  (  "Number of listeners: "
-  ++ shows nblisteners "\nBitrate (kb/s): "
-  ++ shows bitrate     "\nServer bandwidth (Mib/s): "
-  ++ result
+  (format
+    "Number of listeners: {0} \nBitrate (kb/s): {1} \nServer bandwidth (Mib/s): {2}"
+    [show nblisteners, show bitrate, result]
   )
   where result = show (bwServer nblisteners bitrate)
 
 
 printServerUsageBw :: Float -> Float -> Float -> Float -> IO ()
 printServerUsageBw nblisteners bitrate nbdays nbhours = putStrLn
-  (  "Number of listeners: "
-  ++ shows nblisteners "\nBitrate (kb/s): "
-  ++ shows bitrate     "\nNumber of days: "
-  ++ shows nbdays      "\nNumber of hours by days: "
-  ++ shows nbhours     "\nBandwidth used (GiB): "
-  ++ result
+  (format
+    "Number of listeners: {0} \nBitrate (kb/s): {1} \nNumber of days: {2} \nNumber of hours by days: {3} \nBandwidth used (GiB): {4}"
+    [show nblisteners, show bitrate, show nbdays, show nbhours, result]
   )
   where result = show (serverUsageBw nblisteners bitrate nbdays nbhours)

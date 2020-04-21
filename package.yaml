@@ -17,6 +17,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - text-format-simple
 
 default-extensions:
 - ApplicativeDo
