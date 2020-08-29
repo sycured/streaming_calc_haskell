@@ -4,4 +4,4 @@ packages:
 extra-deps:
 - argparser-0.3.4
 - text-format-simple-1.1.0
-resolver: lts-14.20
+resolver: lts-16.11
