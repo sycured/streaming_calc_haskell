@@ -8,12 +8,15 @@ services:
   - docker
 
 before_script:
-  - docker pull haskell:latest
-  - docker run -dit --name haskell-build -v $TRAVIS_BUILD_DIR:/shared -w=/shared haskell bash
+  - echo $githubtoken | docker login -u $githublogin --password-stdin docker.pkg.github.com
+  - docker pull docker.pkg.github.com/sycured/centos-haskell-builder/centos-haskell-builder:latest
+  - docker run -dit --name haskell-build -v $TRAVIS_BUILD_DIR:/home/hsk/to_build -w /home/hsk/to_build docker.pkg.github.com/sycured/centos-haskell-builder/centos-haskell-builder:latest bash
 
 script:
-- docker exec haskell-build stack --allow-different-user setup
-- docker exec haskell-build stack --allow-different-user build --test
+  - docker exec -u root -w /root haskell-build chown -R hsk /home/hsk/to_build
+  - docker exec haskell-build stack setup
+  - docker exec haskell-build stack build --test
 
 after_script:
-- docker stop haskell-build
+  - docker logout docker.pkg.github.com
+  - docker stop haskell-build
