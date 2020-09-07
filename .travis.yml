@@ -4,19 +4,14 @@ dist: bionic
 git:
   quiet: true
 
-services:
-  - docker
-
-before_script:
-  - echo $githubtoken | docker login -u $githublogin --password-stdin docker.pkg.github.com
-  - docker pull docker.pkg.github.com/sycured/centos-haskell-builder/centos-haskell-builder:latest
-  - docker run -dit --name haskell-build -v $TRAVIS_BUILD_DIR:/home/hsk/to_build -w /home/hsk/to_build docker.pkg.github.com/sycured/centos-haskell-builder/centos-haskell-builder:latest bash
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /'
+        key_url: 'https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_18.04/Release.key'
+    update: true
+    packages:
+      - buildah
 
 script:
-  - docker exec -u root -w /root haskell-build chown -R hsk /home/hsk/to_build
-  - docker exec haskell-build stack setup
-  - docker exec haskell-build stack build --test
-
-after_script:
-  - docker logout docker.pkg.github.com
-  - docker stop haskell-build
+  - ./build.sh
