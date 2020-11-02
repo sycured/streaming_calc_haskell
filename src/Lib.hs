@@ -9,11 +9,11 @@ where
 import           Text.Format
 
 bwServer :: Float -> Float -> Float
-bwServer nblisteners bitrate = nblisteners * bitrate * 1000 / 1024
+bwServer nblisteners bitrate = 125 * nblisteners * bitrate / 128
 
 serverUsageBw :: Float -> Float -> Float -> Float -> Float
 serverUsageBw nblisteners bitrate nbdays nbhours =
-  nbdays * nbhours * 3600 * bitrate * 1000 / 8 * nblisteners / 1024 / 1024
+  28125 * nbdays * nbhours * bitrate * nblisteners / 65536
 
 printBwServer :: Float -> Float -> IO ()
 printBwServer nblisteners bitrate = putStrLn
